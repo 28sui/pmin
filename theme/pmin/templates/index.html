@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}-{{SITESUBTITLE}}{% endblock %}
+{% block content %}
+{% for article in articles_page.object_list %}
+<article>
+<div class="meta"><div class="data">{{ article.locale_date }}</div></div>
+<h3><a href={{ SITEURL }}/{{ article.url }} class="title">{{ article.title }}</a></h3>
+<div class="tag-cloud">
+      {% if article.tags %}
+      {% for tag in article.tags %}
+<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+      {% endfor %}
+      {% endif %}
+</div><div>
+{% if summarise or article.metadata['summary'] or SUMMARY_MAX_LENGTH %}
+{{ article.summary }}
+<a class="btn" href="{{ SITEURL }}/{{ article.url }}#{{ article.slug }}">阅读全文>></a>
+{% else %}
+{{ article.content }}
+{% endif %}
+</div><hr/>
+{% if not loop.last %}
+{% endif %}
+</article>
+{% endfor %}
+{% include "partial/pagination.html" %}
+{% endblock %}
+{% block additional_js %}
+{% include "partial/jsonld.html" %}
+{% include "partial/disqus_count.html" %}
+{% endblock %}
