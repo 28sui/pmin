@@ -1,0 +1,3 @@
+[submodule "28sui.github.io"]
+	path = 28sui.github.io
+	url = git@github.com:28sui/28sui.github.io.git
